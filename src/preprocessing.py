@@ -28,6 +28,7 @@ def download_nltk_data():
     nltk.download('stopwords')
     nltk.download('punkt')
     nltk.download('punkt_tab')
+    nltk.download('vader_lexicon')
     print("NLTK data downloaded successfully.")
 
 
@@ -42,7 +43,7 @@ stop_words = set(stopwords.words('english'))
 
 # 2. Přidám vlastní "smetí", co nechci v analýze
 custom_stop_words = [
-    'rt', 'gopdebate', 'gop', 'debate', 'amp', 'http', 'https', 'co',
+    'rt', 'gopdebate', 'gop', 'debate', 'amp', 'http', 'https', 'co', 'realdonaldtrump',
     # Jména kandidátů
     'donald', 'trump', 'ted', 'cruz', 'ben', 'carson', 'scott', 'walker',
     'jeb', 'bush', 'marco', 'rubio', 'mike', 'huckabee', 'chris', 'christie',

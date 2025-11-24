@@ -27,6 +27,13 @@ def analyze_candidate_topics(candidate_df: pd.DataFrame, candidate_name: str):
     Vrací:
         Tuple (int, int, int): (počet pozitivních, počet negativních, počet neutrálních)
     """
+    print(f"\n=== OBECNÁ ANALÝZA (všechny tweety) pro: {candidate_name} ===")
+    all_tokens = []
+    for text in candidate_df['text']:
+        all_tokens.extend(preprocess_text(text))
+
+    _run_full_nltk_analysis(all_tokens)
+    print("=======================================================\n")
 
     positive_raw_tweets = []
     negative_raw_tweets = []

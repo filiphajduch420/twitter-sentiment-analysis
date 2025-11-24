@@ -1,10 +1,9 @@
 # src/data_loader.py
 
 import pandas as pd
-from typing import Dict  # Měníme Tuple na Dict (slovník)
+from typing import Dict
 
 # Definujeme, že funkce vrací slovník
-# Klíč bude string (jméno kandidáta) a hodnota bude DataFrame
 DataFrameDict = Dict[str, pd.DataFrame]
 
 
@@ -24,16 +23,21 @@ def load_data(filepath: str) -> pd.DataFrame:
 def filter_data(df: pd.DataFrame) -> pd.DataFrame:
     """Krok 2: Vyhodím zbytečný sloupce a řádky, kde nic není."""
     print("Filtering data...")
-    columns_to_keep = ['candidate', 'text']
 
-    if not all(col in df.columns for col in columns_to_keep):
+
+    columns_to_keep = ['candidate', 'text', 'tweet_created', 'user_timezone']
+
+
+    available_cols = [c for c in columns_to_keep if c in df.columns]
+
+    if 'candidate' not in available_cols or 'text' not in available_cols:
         print(f"Error: Missing required columns 'candidate' or 'text'!")
         return pd.DataFrame()
 
-    df_filtered = df[columns_to_keep].copy()
+    df_filtered = df[available_cols].copy()
 
     # Vyhodím řádky, kde chybí text nebo kandidát (NaN)
-    df_filtered.dropna(subset=columns_to_keep, inplace=True)
+    df_filtered.dropna(subset=['candidate', 'text'], inplace=True)
 
     print("Data filtered.")
     return df_filtered
@@ -48,7 +52,6 @@ def split_by_all_candidates(df: pd.DataFrame) -> DataFrameDict:
     # Slovník pro ukládání [jméno_kandidáta] -> [jeho_dataframe]
     candidate_dataframes = {}
 
-    # Získám seznam všech unikátních kandidátů (už jsme vyfiltrovali 'nan')
     all_candidates = df['candidate'].unique()
 
     print(f"Found {len(all_candidates)} unique candidate categories.")
@@ -68,13 +71,11 @@ def split_by_all_candidates(df: pd.DataFrame) -> DataFrameDict:
 def load_and_process_data(filepath: str = 'data/Sentiment.csv') -> DataFrameDict:
     """
     Hlavní funkce, co zavolá ty ostatní popořadě.
-    Tohle pak importuju do main.py.
-    VRACÍ SLOVNÍK!
     """
     # Krok 1
     df = load_data(filepath)
     if df.empty:
-        return {}  # Vrátí prázdný slovník
+        return {}
 
     # Krok 2
     df_filtered = filter_data(df)

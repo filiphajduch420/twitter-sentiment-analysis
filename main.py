@@ -65,7 +65,7 @@ def run_project():
     # Srovnání podle časových zón
     plot_top_positive_candidates_by_timezone(all_data)
 
-    # (3) NOVÉ: Heatmapa interakcí
+    # Heatmapa interakcí
     plot_interaction_heatmap(all_data)
 
     print("\nAnalysis complete. Check 'results/images/' for all graphs.")

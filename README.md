@@ -86,6 +86,48 @@ Průměrný sentiment tweetů rozdělený podle časové zóny uživatele.
 
 ---
 
+## 💻 Textový výstup analýzy (Konzole)
+
+Kromě grafických výstupů provádí skript detailní **textovou analýzu v reálném čase**. Pro **každého jednotlivého kandidáta** (nejen pro Trumpa) se do konzole vypisují podrobné statistiky, které slouží k hlubšímu pochopení kontextu.
+
+Výstup pro každého kandidáta obsahuje:
+1.  **Obecná analýza:** Frekvence slov a kolokace (fráze) bez ohledu na sentiment.
+2.  **Konkordance (Concordance):** Ukázka kontextu, ve kterém se klíčová slova vyskytují (např. v jaké větě bylo použito slovo "wall").
+3.  **VADER skóre:** Přesné počty pozitivních, negativních a neutrálních tweetů.
+4.  **Separátní analýza témat:** Unikátní témata, která se řeší jen v pozitivním nebo jen v negativním kontextu.
+
+**Ukázka reálného výstupu z konzole pro Donalda Trumpa (zkráceno):**
+
+```text
+===== Analyzing: Donald Trump =====
+
+=== OBECNÁ ANALÝZA (všechny tweety) pro: Donald Trump ===
+Top 10 témat (Frekvence):
+[('gopdebates', 803), ('rwsurfergirl', 538), ('fox', 421), ('megynkelly', 252), ('news', 245)...]
+
+Časté fráze (Kolokace):
+fox news; gopdebates rwsurfergirl; stoping speaking; last night; candidates attack
+
+Kontext pro top 3 témata (Shody):
+--- Kontext pro slovo: 'fox' ---
+ratings history presidential debates fox say thanks rushlimbaugh americans get
+ed need remember elected george twice fox news agenda promote carly never menti
+stonishingly biased order take wonder fox news one took order seriously amymek 
+
+=======================================================
+Running VADER sentiment analysis on 2813 tweets for Donald Trump...
+Found 1130 positive, 795 negative, and 888 neutral tweets.
+
+--- Analýza POZITIVNÍCH témat (čemu se věnovat) ---
+Top 10 témat: [('gopdebates', 257), ('fox', 248), ('rwsurfergirl', 232), ('candidates', 227)...]
+Časté fráze: stoping speaking; fox stoping; raising ratings; candidates attack
+
+--- Analýza NEGATIVNÍCH témat (čemu se vyhnout) ---
+Top 10 témat: [('fox', 126), ('gopdebates', 125), ('rwsurfergirl', 107), ('news', 106)...]
+Časté fráze: fox news; admit republican; mean lead; republican leader
+```
+
+
 ## 📝 Závěr a vyhodnocení favorita
 
 Analýza tohoto datasetu přináší zajímavý pohled na to, jak funguje moderní politická kampaň na sociálních sítích:
